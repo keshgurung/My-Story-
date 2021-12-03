@@ -22,6 +22,15 @@ urlpatterns = [
     path('story/', include('stories.urls')),
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
+    path('genre/', include('genre.urls')),
+    path('comment/', include('comments.urls')),
+    path('rating/', include('rating.urls')),
+    path('reading/', include('reading.urls')),
+
+
+
+
 
     # path('auth/', include('jwt_auth.urls')),
+
 ]

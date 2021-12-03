@@ -8,9 +8,10 @@ from django.db import models
 class Story(models.Model):
     # no need to give id.. djaango will provide a unique id itself
     title = models.CharField(max_length=100)
-    genre = models.CharField(max_length=100)
-    description = models.CharField(max_length=10000)
-    rating = models.IntegerField()
+    genre = models.ForeignKey("genre.Genre", on_delete=models.CASCADE)
+    # CASCADE is not a good option maybe here as it will delete the story assigned to it too .
+
+    description = models.TextField(max_length=10000)
 
 
 def __str__(self):
