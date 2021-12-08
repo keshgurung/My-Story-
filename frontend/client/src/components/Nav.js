@@ -24,6 +24,7 @@ const Nav = ({ isLoggedIn, setIsLoggedIn }) => {
       name: 'Disable body scrolling',
       scroll: false,
       backdrop: true,
+      // eslint-disable-next-line comma-dangle
     },
   ]
 
@@ -36,11 +37,6 @@ const Nav = ({ isLoggedIn, setIsLoggedIn }) => {
           <li>
             <Link onClick={handleClose} to='/'>
               Home
-            </Link>
-          </li>
-          <li>
-            <Link onClick={handleClose} to='/about'>
-              About
             </Link>
           </li>
           {isLoggedIn ? (

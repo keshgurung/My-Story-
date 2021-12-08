@@ -1,0 +1,82 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  padding-bottom: 5px;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 80%;
+  border-top: 3px solid $tufts-blue;
+  position: relative;
+  color: $tufts-blue;
+  font-family: $montserat;
+
+  div {
+    display: flex;
+
+    .top {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      text-decoration: none;
+      color: $tufts-blue;
+    }
+
+    .social-info {
+      padding-right: 20px;
+      p {
+        margin: 0;
+        padding-right: 5px;
+      }
+
+      i {
+        padding-right: 5px;
+        color: black;
+      }
+
+      i:hover {
+        color: $tufts-blue;
+      }
+    }
+  }
+
+  .rights {
+    color: $tufts-blue;
+    margin: 0;
+  }
+
+  .bottom-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    div {
+      display: flex;
+      align-items: center;
+
+      p {
+        margin: 0;
+      }
+
+      a {
+        color: $tufts-blue;
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: $cobalt-blue;
+      }
+
+      i {
+        margin-right: 10px;
+      }
+    }
+  }
+}

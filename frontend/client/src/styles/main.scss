@@ -1,0 +1,12 @@
+@import 'fonts';
+@import 'colours';
+@import 'footer';
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+@import 'header';
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}

@@ -141,11 +141,11 @@ export const editUser = async (id, data) => {
 // }
 
 export const login = async (data) => {
-  return makeAxiosRequest('/login', data)
+  return makeAxiosRequest('/auth/login/', data)
 }
 
 export const register = (data) => {
-  return makeAxiosRequest('/register', data)
+  return makeAxiosRequest('/auth/register/', data)
 }
 
 const makeAxiosRequest = async (url, data) => {
