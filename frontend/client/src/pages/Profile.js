@@ -1,16 +1,31 @@
 import React from 'react'
-import { getUserName } from '../helpers/api'
+import { getUserName, getStories } from '../helpers/api'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
-import ProfileEditForm from '../components/ProfileEditForm'
+import { Link } from 'react-router-dom'
+import StoryCard from '../components/StoryCard'
 
 const Profile = () => {
   const [user, setUser] = useState(null)
   const { id } = useParams()
-  //   const history = useHistory()
+
   console.log(id)
+
   useEffect(() => {
     getUserName(id).then(setUser)
+  }, [id])
+
+  const [stories, setstories] = useState([])
+
+  useEffect(() => {
+    const getStoryData = async () => {
+      const allstories = await getStories()
+      //allstories.filter((story) => story.owner.username === user.username)
+      // console.log(allstories.owner.username)
+      // console.log(user.username)
+      setstories(allstories)
+    }
+    getStoryData()
   }, [id])
 
   return (
@@ -18,12 +33,24 @@ const Profile = () => {
       {user ? (
         <div className='user-page'>
           <div className='user-info-welcome'>
-            <h3>Hello {user.username}</h3>
+            <h3> {user.username}</h3>
+            <h3>{user.email}</h3>
+            <h2>Hello {user.username}, Welcome to mystory</h2>
           </div>
           <div className='user-info'>
-            <h4>Account Details:</h4>
-            <ProfileEditForm {...user} />
+            <h3>
+              <Link to='/story/add'>Add a Story</Link>
+            </h3>
           </div>
+          <section className='story-list'>
+            <ul>
+              {stories.map((story) => (
+                <li key={story.id}>
+                  <StoryCard {...story} />
+                </li>
+              ))}
+            </ul>
+          </section>
         </div>
       ) : (
         <div>

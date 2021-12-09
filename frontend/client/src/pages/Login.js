@@ -2,11 +2,10 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import { setToken, setUserId } from '../helpers/auth'
-// import { ToastContainer, toast } from 'react-toastify'
 
 const Login = ({ setIsLoggedIn }) => {
   const history = useHistory()
-  // const [errors, setError] = useState(false)
+
   const [loginData, setloginData] = useState({
     username: '',
     password: '',
@@ -29,16 +28,21 @@ const Login = ({ setIsLoggedIn }) => {
     event.preventDefault()
     try {
       const { data } = await axios.post('/api/auth/login/', loginData)
-      console.log('data', data)
-      console.log(loginData)
       setToken(data.token)
+      console.log('data', data)
+      const num = data.id[0].toString()
+      console.log('new nunm', num)
+      console.log(loginData)
+      setUserId(num)
       setIsLoggedIn(true)
-      setUserId(data.userId)
       history.push('/story')
     } catch (err) {
       console.log(err)
     }
   }
+  console.log('hi this is data')
+  console.log(window.localStorage.getItem('token'))
+  console.log(window.localStorage.getItem('num'))
 
   return (
     <>

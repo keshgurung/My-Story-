@@ -9,7 +9,6 @@ export const getStories = async () => {
     url: `${baseUrl}/story`,
     headers: {},
   }
-
   const response = await axios(config)
   return response.data
 }
@@ -25,6 +24,18 @@ export const getStory = async (id) => {
   return response.data
 }
 
+export const addStory = async (data) => {
+  const config = {
+    method: 'post',
+    url: `${baseUrl}/story`,
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+    data,
+  }
+  const response = await axios(config)
+  return response.data
+}
 // export const getRecommendation = async (id, recId) => {
 //   const config = {
 //     method: 'get',
@@ -40,24 +51,10 @@ export const getStory = async (id) => {
 export const getUserName = async (id) => {
   const config = {
     method: 'get',
-    url: `${baseUrl}/users/${id}`,
+    url: `${baseUrl}/auth/${id}`,
     headers: {
       Authorization: `Bearer ${getToken()}`,
     },
-  }
-
-  const response = await axios(config)
-  return response.data
-}
-
-export const editUser = async (id, data) => {
-  const config = {
-    method: 'put',
-    url: `${baseUrl}/users/${id}`,
-    headers: {
-      Authorization: `Bearer ${getToken()}`,
-    },
-    data,
   }
 
   const response = await axios(config)

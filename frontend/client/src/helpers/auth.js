@@ -11,13 +11,13 @@ export const removeToken = () => {
 }
 
 export const getUserId = () => {
-  return window.localStorage.getItem('userId')
+  return window.localStorage.getItem('num')
 }
 
-export const setUserId = (userId) => {
-  window.localStorage.setItem('userId', userId)
+export const setUserId = (num) => {
+  window.localStorage.setItem('num', num.toString())
 }
 
 export const removeUserId = () => {
-  window.localStorage.removeItem('userId')
+  window.localStorage.removeItem('num')
 }

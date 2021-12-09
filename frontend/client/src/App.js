@@ -13,6 +13,7 @@ import Login from './pages/Login'
 import AllStoriesList from './pages/AllStoryList'
 import SingleStory from './pages/SingleStory'
 import Profile from './pages/Profile'
+import AddStory from './pages/AddStory'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -46,6 +47,7 @@ function App() {
       <main>
         <Switch>
           <Route exact path='/' component={Home} />
+          <Route path='/story/add' component={AddStory} />
           <Route path='/story/:id' component={SingleStory} />
           <Route path='/story' component={AllStoriesList} />
           <Route path='/register' component={Register} />
