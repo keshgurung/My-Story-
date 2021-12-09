@@ -10,7 +10,7 @@ const AddStory = () => {
   const [data, setData] = useState({
     title: '',
     description: '',
-    genre: null,
+    genre: '',
   })
   const [errorInfo, setErrorInfo] = useState({})
   const [isError, setIsError] = useState(false)
@@ -45,19 +45,13 @@ const AddStory = () => {
   }
 
   const handleFormChange = (event) => {
-    const { name, value } = event.target
+    const { name, value, type } = event.target
     setData({
       ...data,
-      [name]: value,
+      [name]: type === 'number' ? parseInt(value) : value,
     })
   }
-  const handleNewFormChange = (event) => {
-    const { name, value } = event.target
-    setData({
-      ...data,
-      [name]: parseInt(value),
-    })
-  }
+  console.log(data)
 
   const formInputProps = {
     data,
@@ -86,16 +80,25 @@ const AddStory = () => {
           />
           <select
             className='select-type'
-            id='type'
-            name='type'
-            onChange={handleNewFormChange}
+            id='number'
+            name='genre'
+            onChange={handleFormChange}
           >
-            <option>-Select Type-</option>
-            <option value='1'>romantic</option>
-            <option value='2'>horror</option>
-            <option value='3'>comedy</option>
-            <option value='4'>fiction</option>
-            <option value='5'>drama</option>
+            <option type='number' value='1'>
+              romantic
+            </option>
+            <option type='number' value='2'>
+              horror
+            </option>
+            <option type='number' value='3'>
+              comedy
+            </option>
+            <option type='number' value='4'>
+              fiction
+            </option>
+            <option type='number' value='5'>
+              drama
+            </option>
           </select>
           <div>
             <input type='submit' value='Add Story' />

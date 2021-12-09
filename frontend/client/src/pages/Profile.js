@@ -19,11 +19,11 @@ const Profile = () => {
 
   useEffect(() => {
     const getStoryData = async () => {
-      const allstories = await getStories()
-      //allstories.filter((story) => story.owner.username === user.username)
-      // console.log(allstories.owner.username)
-      // console.log(user.username)
-      setstories(allstories)
+      const allStories = await getStories()
+      const newStories = allStories.filter(
+        (story) => story.owner.username === user.username
+      )
+      setstories(newStories)
     }
     getStoryData()
   }, [id])
