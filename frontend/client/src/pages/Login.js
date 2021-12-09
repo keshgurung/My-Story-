@@ -1,81 +1,87 @@
 import React, { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
-import { login } from '../helpers/api'
-import { setToken, setUserId } from '../helpers/auth'
-import FormInput from '../components/FormInput'
+import { useHistory } from 'react-router-dom'
+import axios from 'axios'
+// import { ToastContainer, toast } from 'react-toastify'
 
-const Login = ({ setIsLoggedIn }) => {
-  const [data, setData] = useState({
+const Login = () => {
+  const history = useHistory()
+  // const [errors, setError] = useState(false)
+  const [loginData, setloginData] = useState({
     username: '',
     password: '',
   })
 
-  const [errorInfo, setErrorInfo] = useState({})
-  const [isError, setIsError] = useState(false)
-
-  const history = useHistory()
+  const handleChange = (event) => {
+    const newLoginData = {
+      ...loginData,
+      [event.target.name]: event.target.value,
+    }
+    setloginData(newLoginData)
+  }
+  // console.log('newLoginData', newLoginData)
+  const setTokenToLocalStorage = (token) => {
+    window.localStorage.setItem('token', token)
+    console.log('TOKEN', token)
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    login(data).then(handleSuccessfulLogin).catch(handleError)
-  }
-  const handleSuccessfulLogin = ({ token, userId }) => {
-    setToken(token)
-    setUserId(userId)
-    setIsLoggedIn(true)
-    setIsError(false)
-    history.push('/')
-  }
-  const handleError = (error) => {
-    if (error.response) {
-      setErrorInfo(error.response.data)
-      setIsError(true)
+    try {
+      const { data } = await axios.post('/api/auth/login/', loginData)
+      console.log('data', data)
+      console.log(loginData)
+      setTokenToLocalStorage(data.token)
+      history.push('/')
+    } catch (err) {
+      console.log(err)
     }
   }
-  const handleFormChange = (event) => {
-    const { name, value } = event.target
-    setData({
-      ...data,
-      [name]: value,
-    })
-  }
-
-  const formInputProps = { data, errorInfo, handleFormChange }
 
   return (
-    <section className='login'>
-      <form onSubmit={handleSubmit}>
-        <h1>Sign In</h1>
-        <FormInput
-          placeholder='username'
-          type='username'
-          name='username'
-          {...formInputProps}
-        />
-        <FormInput
-          placeholder='password'
-          type='password'
-          name='password'
-          {...formInputProps}
-        />
-        <div className='submit-section'>
-          <input type='submit' value='Login' />
-        </div>
-        {isError ? (
-          <div className='error'>
-            <p>There appears to have been an error. Please try again.</p>
-          </div>
-        ) : (
-          <></>
-        )}
-      </form>
-      <div className='signup'>
-        <p>
-          {' '}
-          Not a Member? <Link to='/register'>Sign up here</Link>
-        </p>
+    <>
+      <div className='login-wrap'>
+        <form onSubmit={handleSubmit} className='register-form'>
+          <>
+            <div className='form-group-register'>
+              <label className='frm-label' htmlFor='username'>
+                username
+              </label>
+              <input
+                className='main-input'
+                type='username'
+                name='username'
+                placeholder='enter username'
+                value={loginData.username}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </>
+
+          <>
+            <div className='form-group-register'>
+              <label className='frm-label' htmlFor='password'>
+                password
+              </label>
+              <input
+                className='main-input'
+                type='password'
+                name='password'
+                placeholder='enter password'
+                value={loginData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </>
+
+          <>
+            <button>submit</button>
+          </>
+        </form>
       </div>
-    </section>
+    </>
   )
 }
+
 export default Login
