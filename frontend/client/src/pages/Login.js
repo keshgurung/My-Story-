@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
+import { setToken, setUserId } from '../helpers/auth'
 // import { ToastContainer, toast } from 'react-toastify'
 
-const Login = () => {
+const Login = ({ setIsLoggedIn }) => {
   const history = useHistory()
   // const [errors, setError] = useState(false)
   const [loginData, setloginData] = useState({
@@ -19,10 +20,10 @@ const Login = () => {
     setloginData(newLoginData)
   }
   // console.log('newLoginData', newLoginData)
-  const setTokenToLocalStorage = (token) => {
-    window.localStorage.setItem('token', token)
-    console.log('TOKEN', token)
-  }
+  // const setTokenToLocalStorage = (token) => {
+  //   window.localStorage.setItem('token', token)
+  //   console.log('TOKEN', token)
+  // }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -30,8 +31,10 @@ const Login = () => {
       const { data } = await axios.post('/api/auth/login/', loginData)
       console.log('data', data)
       console.log(loginData)
-      setTokenToLocalStorage(data.token)
-      history.push('/')
+      setToken(data.token)
+      setIsLoggedIn(true)
+      setUserId(data.userId)
+      history.push('/story')
     } catch (err) {
       console.log(err)
     }

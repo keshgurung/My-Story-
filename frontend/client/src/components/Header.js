@@ -25,9 +25,6 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
           <li>
             <Link to='/'>Home</Link>
           </li>
-          <li>
-            <Link to='/story'>Stories</Link>
-          </li>
           {isLoggedIn ? (
             <>
               <li>

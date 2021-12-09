@@ -11,18 +11,8 @@ import NotFound from './pages/NotFound'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import AllStoriesList from './pages/AllStoryList'
-
-// function App() {
-//   useEffect(() => {
-//     const getData = async () => {
-//       const res = await axios.get('/api/story') // * <-- replace with your endpoint
-//       console.log(res.data)
-//     }
-//     getData()
-//   })
-
-//   return <h1>Hello World</h1>
-// }
+import SingleStory from './pages/SingleStory'
+import Profile from './pages/Profile'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -46,23 +36,28 @@ function App() {
           user={user}
           setUser={setUser}
         />
-        <Header />
+        <Header
+          isLoggedIn={isLoggedIn}
+          setIsLoggedIn={setIsLoggedIn}
+          user={user}
+          setUser={setUser}
+        />
       </header>
       <main>
         <Switch>
           <Route exact path='/' component={Home} />
+          <Route path='/story/:id' component={SingleStory} />
           <Route path='/story' component={AllStoriesList} />
+          <Route path='/register' component={Register} />
           <Route
             path='/login'
             component={(props) => (
               <Login {...props} setIsLoggedIn={setIsLoggedIn} />
             )}
           />
-          <Route path='/register' component={Register} />
-          {/* <Route path='/users/:id' component={Profile} />
-          <Route path='/profiles/:id' component={OtherProfiles} /> */}
 
-          {/* By not specifying a path, we catch all. */}
+          <Route path='/users/:id' component={Profile} />
+          {/* <Route path='/profiles/:id' component={OtherProfiles} /> */}
           <Route component={NotFound} />
         </Switch>
       </main>

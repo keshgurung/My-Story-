@@ -24,7 +24,7 @@ const AllStoriesList = () => {
     <section className='story-list'>
       <ul>
         {stories.map((story) => (
-          <li key={story._id}>
+          <li key={story.id}>
             <StoryCard {...story} />
           </li>
         ))}
