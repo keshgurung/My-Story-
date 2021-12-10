@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 import StoryCard from '../components/StoryCard'
+import { getUserId } from '../helpers/auth'
 
 const Profile = () => {
   const [user, setUser] = useState(null)
@@ -11,22 +12,29 @@ const Profile = () => {
 
   console.log(id)
 
+  const [stories, setstories] = useState([])
   useEffect(() => {
     getUserName(id).then(setUser)
-  }, [id])
-
-  const [stories, setstories] = useState([])
-
-  useEffect(() => {
     const getStoryData = async () => {
       const allStories = await getStories()
       const newStories = allStories.filter(
-        (story) => story.owner.username === user.username
+        (story) => story.owner.id === parseInt(getUserId())
       )
       setstories(newStories)
     }
     getStoryData()
   }, [id])
+
+  // useEffect(() => {
+  //   const getStoryData = async () => {
+  //     const allStories = await getStories()
+  //     const newStories = allStories.filter(
+  //       (story) => story.owner.username === 'admin'
+  //     )
+  //     setstories(newStories)
+  //   }
+  //   getStoryData()
+  // }, [id])
 
   return (
     <section>
@@ -43,6 +51,7 @@ const Profile = () => {
             </h3>
           </div>
           <section className='story-list'>
+            <h2> {user.username} Story List</h2>
             <ul>
               {stories.map((story) => (
                 <li key={story.id}>
