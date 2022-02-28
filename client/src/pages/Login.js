@@ -18,11 +18,6 @@ const Login = ({ setIsLoggedIn }) => {
     }
     setloginData(newLoginData)
   }
-  // console.log('newLoginData', newLoginData)
-  // const setTokenToLocalStorage = (token) => {
-  //   window.localStorage.setItem('token', token)
-  //   console.log('TOKEN', token)
-  // }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -40,7 +35,7 @@ const Login = ({ setIsLoggedIn }) => {
       console.log(err)
     }
   }
-  console.log('hi this is data')
+
   console.log(window.localStorage.getItem('token'))
   console.log(window.localStorage.getItem('num'))
 
