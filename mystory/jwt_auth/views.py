@@ -31,7 +31,8 @@ class LoginView(APIView):
         try:
             return User.objects.get(email=email)
         except User.DoesNotExist:
-            raise PermissionDenied({'message': 'Invalid credentials'})
+            raise PermissionDenied(
+                {'message': 'Invalid credentials, please try again'})
 
     def post(self, request):
 
@@ -40,10 +41,11 @@ class LoginView(APIView):
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-            raise PermissionDenied(detail='Invalid credentials')
+            raise PermissionDenied(detail='Invalid credentials provided')
 
         if not user.check_password(password):
-            raise PermissionDenied({'message': 'Invalid credentials'})
+            raise PermissionDenied(
+                {'message': 'Invalid credentials, check_password'})
 
         dt = datetime.now() + timedelta(days=7)
 

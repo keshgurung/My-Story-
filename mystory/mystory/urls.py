@@ -26,11 +26,6 @@ urlpatterns = [
     path('comment/', include('comments.urls')),
     path('rating/', include('rating.urls')),
     path('reading/', include('reading.urls')),
-
-
-
-
-
-    # path('auth/', include('jwt_auth.urls')),
+    path('auth/', include('jwt_auth.urls')),
 
 ]
