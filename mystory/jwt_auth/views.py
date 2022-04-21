@@ -1,9 +1,9 @@
-from django.shortcuts import render
-
 # Create your views here.
 from django.shortcuts import render
 
 # Create your views here.
+from datetime import datetime
+from datetime import timedelta
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import PermissionDenied
@@ -51,4 +51,4 @@ class LoginView(APIView):
 
         token = jwt.encode(
             {'sub': user.id, 'exp': int(dt.strftime('%s'))}, settings.SECRET_KEY, algorithm='HS256')
-        return Response({'token': token, 'message': f'Welcome back {user.username}!'})
+        return Response({'token': token, 'message': f'Welcome back {user.username}!, {dt}'})
